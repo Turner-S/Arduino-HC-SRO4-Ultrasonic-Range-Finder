@@ -11,54 +11,54 @@ LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 //initialize pins and LCD
 void setup()
 {
-Serial.begin(9600);
-pinMode(out,OUTPUT);
-pinMode(in,INPUT);
-lcd.begin(16, 2);
+    Serial.begin(9600);
+    pinMode(out,OUTPUT);
+    pinMode(in,INPUT);
+    lcd.begin(16, 2);
 }
 
 void loop()
 {
 
 //manually ping and read from the emitter
-long dur;
+    long dur;
 
-digitalWrite(out,LOW);
-delayMicroseconds(2);
+    digitalWrite(out,LOW);
+    delayMicroseconds(2);
 
-digitalWrite(out,HIGH);
-delayMicroseconds(10);
-digitalWrite(out,LOW);
+    digitalWrite(out,HIGH);
+    delayMicroseconds(10);
+    digitalWrite(out,LOW);
 
-dur=pulseIn(in,HIGH);
+    dur=pulseIn(in,HIGH);
 
-Serial.println(String(dur));
+    Serial.println(String(dur));
 
 //calculate distance
-int distance = (dur/2)/29.1;
+    int distance = (dur/2)/29.1;
 
 //beep the speaker if the distance falls within certain bounds
-if (distance < 100 && distance != 0)
-{
-tone(tonePin, 500, 300);
-}
+    if (distance < 100 && distance != 0)
+    {
+        tone(tonePin, 500, 300);
+    }
 
-if (distance < 50 && distance != 0)
-{
-tone(tonePin, 1000, 300);
-}
+    if (distance < 50 && distance != 0)
+    {
+        tone(tonePin, 1000, 300);
+    }
 
-if (distance < 10 && distance != 0)
-{
-tone(tonePin, 2000, 1000);
-}
+    if (distance < 10 && distance != 0)
+    {
+        tone(tonePin, 2000, 1000);
+    }
 
 //print to LED
-lcd.setCursor(0, 0);
-lcd.print("Range: ");
-lcd.print(String(distance));
-lcd.print(" cm "); //requires spaces to ensure no character duplication
-delay(500);
+    lcd.setCursor(0, 0);
+    lcd.print("Range: ");
+    lcd.print(String(distance));
+    lcd.print(" cm "); //requires spaces to ensure no character duplication
+    delay(500);
 }
 
 
